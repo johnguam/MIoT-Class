@@ -1,5 +1,5 @@
 //
-//  LaunchViewController.swift
+//  CustomLightViewController.swift
 //  MiotTask1
 //
 //  Created by Lee, John on 3/26/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LaunchViewController: UIViewController {
+class CustomLightViewController: UIViewController {
 
     var colorWheel: ColorWheel!
     var colorLabel: UILabel!
@@ -39,7 +39,6 @@ class LaunchViewController: UIViewController {
         colorWheel.addConstraint(widthConstraint)
         colorWheel.addConstraint(heightConstraint)
         
-        colorWheel.translatesAutoresizingMaskIntoConstraints = false
         colorWheel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         colorWheel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 25.0).isActive = true
     }
@@ -69,7 +68,7 @@ class LaunchViewController: UIViewController {
 
 // MARK: ColorWheelDelegate
 
-extension LaunchViewController: ColorWheelDelegate {
+extension CustomLightViewController: ColorWheelDelegate {
     func hueAndSaturationSelected(_ hue: CGFloat, saturation: CGFloat) {
         updateColorLabel()
     }

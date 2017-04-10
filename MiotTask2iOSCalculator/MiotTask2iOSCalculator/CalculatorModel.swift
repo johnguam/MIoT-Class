@@ -25,7 +25,7 @@ class CalculatorModel
     }
     
     private var operations: Dictionary<String, Operation> = [
-        "÷": Operation.BinaryOperation({$0 / $1}),
+        "÷": Operation.BinaryOperation {$0 / $1},
         "×": Operation.BinaryOperation({$0 * $1}),
         "−": Operation.BinaryOperation({$0 - $1}),
         "+": Operation.BinaryOperation({$0 + $1}),

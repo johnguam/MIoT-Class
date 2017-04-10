@@ -10,8 +10,7 @@
 		975C65B51E88753400B1E843 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C65B41E88753400B1E843 /* AppDelegate.swift */; };
 		975C65BA1E88753400B1E843 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 975C65B81E88753400B1E843 /* Main.storyboard */; };
 		975C65BC1E88753400B1E843 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 975C65BB1E88753400B1E843 /* Assets.xcassets */; };
-		975C65BF1E88753400B1E843 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 975C65BD1E88753400B1E843 /* LaunchScreen.storyboard */; };
-		975C65C91E8876C200B1E843 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C65C81E8876C200B1E843 /* LaunchViewController.swift */; };
+		975C65C91E8876C200B1E843 /* CustomLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C65C81E8876C200B1E843 /* CustomLightViewController.swift */; };
 		975C66001E8877A700B1E843 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 975C65FA1E8877A700B1E843 /* .gitignore */; };
 		975C66011E8877A700B1E843 /* BrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C65FB1E8877A700B1E843 /* BrightnessView.swift */; };
 		975C66021E8877A700B1E843 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C65FC1E8877A700B1E843 /* ColorUtils.swift */; };
@@ -25,9 +24,8 @@
 		975C65B41E88753400B1E843 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		975C65B91E88753400B1E843 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		975C65BB1E88753400B1E843 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		975C65BE1E88753400B1E843 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		975C65C01E88753400B1E843 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		975C65C81E8876C200B1E843 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		975C65C81E8876C200B1E843 /* CustomLightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLightViewController.swift; sourceTree = "<group>"; };
 		975C65FA1E8877A700B1E843 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		975C65FB1E8877A700B1E843 /* BrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrightnessView.swift; sourceTree = "<group>"; };
 		975C65FC1E8877A700B1E843 /* ColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
@@ -67,9 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				975C65B41E88753400B1E843 /* AppDelegate.swift */,
-				975C65BD1E88753400B1E843 /* LaunchScreen.storyboard */,
 				975C65B81E88753400B1E843 /* Main.storyboard */,
-				975C65C81E8876C200B1E843 /* LaunchViewController.swift */,
+				975C65C81E8876C200B1E843 /* CustomLightViewController.swift */,
 				975C65BB1E88753400B1E843 /* Assets.xcassets */,
 				975C65C01E88753400B1E843 /* Info.plist */,
 				975C65F91E8877A700B1E843 /* SwiftHSVColorPicker */,
@@ -150,7 +147,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				975C66001E8877A700B1E843 /* .gitignore in Resources */,
-				975C65BF1E88753400B1E843 /* LaunchScreen.storyboard in Resources */,
 				975C65BC1E88753400B1E843 /* Assets.xcassets in Resources */,
 				975C65BA1E88753400B1E843 /* Main.storyboard in Resources */,
 			);
@@ -164,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				975C66021E8877A700B1E843 /* ColorUtils.swift in Sources */,
-				975C65C91E8876C200B1E843 /* LaunchViewController.swift in Sources */,
+				975C65C91E8876C200B1E843 /* CustomLightViewController.swift in Sources */,
 				975C66041E8877A700B1E843 /* SelectedColorView.swift in Sources */,
 				975C65B51E88753400B1E843 /* AppDelegate.swift in Sources */,
 				975C66011E8877A700B1E843 /* BrightnessView.swift in Sources */,
@@ -182,14 +178,6 @@
 				975C65B91E88753400B1E843 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		975C65BD1E88753400B1E843 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				975C65BE1E88753400B1E843 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -329,6 +317,7 @@
 				975C65C51E88753400B1E843 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

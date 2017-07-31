@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ListViewController: UIViewController {
 
@@ -14,9 +15,10 @@ class ListViewController: UIViewController {
         static let latitude = 37.3533530886479
         static let longitude = -122.013784749846
         static let radius = 500
+        static let showTruckDetailViewIdentifer = "ShowTruckDetailView"
     }
 
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     var searchResults: [FoodTruck] = []
     let mobileEatsService = MobileEatsService()
     
@@ -36,9 +38,6 @@ class ListViewController: UIViewController {
             
             if !errorMessage.isEmpty { print("Search error: " + errorMessage) }
         }
-        
-        //TODO: For Use Later
-        //performSegue(withIdentifier: "ShowTruckDetailView", sender: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,20 +54,28 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        let cell = TruckTableViewCell(style: .subtitle, reuseIdentifier: nil)
         
         let foodTruck = searchResults[indexPath.row]
         cell.textLabel?.text = foodTruck.title
         cell.detailTextLabel?.text = foodTruck.subtitle
-        
-        // TODO: Set Image for Cell
+        cell.imageView?.sd_setImage(with: foodTruck.imageURL, placeholderImage: UIImage(named: "truck.png"))
+
         return cell
     }
   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let foodTruck = searchResults[indexPath.row]
-        // Launch food truck detail page view
-
+        performSegue(withIdentifier: Constant.showTruckDetailViewIdentifer, sender: self)
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constant.showTruckDetailViewIdentifer,
+            let truckDetailVC = segue.destination as? TruckDetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            let foodTruck = searchResults[indexPath.row]
+            truckDetailVC.currentFoodTruck = foodTruck
+        }
     }
 }
 

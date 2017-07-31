@@ -28,7 +28,8 @@ class MapViewController: UIViewController {
 
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-
+        //locationManager.requestLocation()
+        
         let location = CLLocation(latitude: Constant.latitude, longitude: Constant.longitude)
         centerMapOnLocation(location: location)
         
@@ -61,14 +62,14 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
-            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingLocation()
+            break
         default:
             break
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

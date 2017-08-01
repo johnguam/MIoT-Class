@@ -24,6 +24,7 @@ class MobileEatsService {
         static let searchBaseURL = "https://jirv8u2ell.execute-api.us-west-1.amazonaws.com/dev/foodtrucks/search"
         static let detailsBaseURL = "https://jirv8u2ell.execute-api.us-west-1.amazonaws.com/dev/foodtrucks"
         static let authHeader = "Bearer UOG4x25kRFF6bWtb-Sq8wP2J3mD9NZfSKbKdweHWO0nC7C-A5-ROuVH30RQ7_2tQrYpIAvOuIjI9OBtON8BtUb49la3UGXmc0B_tgTddC14pp0ceMTSHY_xxnyhtWXYx"
+        static let metersPerMile: Double = 1609.344
     }
     
     let defaultSession = URLSession(configuration: .default)
@@ -96,6 +97,8 @@ class MobileEatsService {
             var rating: Double? = nil
             var reviewCount: Int? = nil
             var displayAddressLine1: String? = nil
+            var displayAddressLine2: String? = nil
+            var subtitle: String? = nil
             
             if let foodTruckDictionary = foodTruckDictionary as? JSONDictionary,
                 let id = foodTruckDictionary["id"] as? String,
@@ -116,12 +119,23 @@ class MobileEatsService {
                 distance = foodTruckDictionary["distance"] as? Double
                 rating = foodTruckDictionary["rating"] as? Double
                 reviewCount = foodTruckDictionary["review_count"] as? Int
+                
+                // Display address
                 if let displayAddress = location["display_address"] as? [Any],
                     displayAddress.count >= 1 {
                     displayAddressLine1 = displayAddress[0] as? String
+                    if displayAddress.count >= 2 {
+                        displayAddressLine2 = displayAddress[1] as? String
+                    }
                 }
                 
-                let foodTruck = FoodTruck(displayPhone: displayPhone, phone: phone, distance: distance, id: id, imageURL: imageURL, rating: rating, reviewCount: reviewCount, coordinate: coordinate, title: name, subtitle: displayAddressLine1)
+                // Distance to miles
+                if let distance = distance {
+                    let distanceMiles = distance / Constant.metersPerMile
+                    subtitle = String(format:"%.2f", distanceMiles) + " mi"
+                }
+                
+                let foodTruck = FoodTruck(displayPhone: displayPhone, phone: phone, displayAddressLine1: displayAddressLine1, displayAddressLine2: displayAddressLine2, distance: distance, id: id, imageURL: imageURL, rating: rating, reviewCount: reviewCount, coordinate: coordinate, title: name, subtitle: subtitle)
                 foodTrucks.append(foodTruck)
                 
             } else {

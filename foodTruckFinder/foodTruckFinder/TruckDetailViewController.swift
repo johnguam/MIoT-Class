@@ -22,6 +22,10 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var phoneButton: UIButton!
     @IBOutlet var addressButton: UIButton!
+    @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var addressLine1Label: UILabel!
+    @IBOutlet var addressLine2Label: UILabel!
     
     var urls = [URL]()
     override func viewDidLoad() {
@@ -34,11 +38,28 @@ class TruckDetailViewController: UIViewController {
         }
         
         nameLabel?.text = currentFoodTruck.title
+        if let rating = currentFoodTruck.rating {
+            ratingLabel?.text = String(format:"%.1f", rating)
+        }
+        
+        if let distance = currentFoodTruck.subtitle {
+            distanceLabel?.text = distance
+        }
+        
+        if let addressLine1 = currentFoodTruck.displayAddressLine1 {
+            addressLine1Label?.text = addressLine1
+        }
+
+        if let addressLine2 = currentFoodTruck.displayAddressLine2 {
+            addressLine2Label?.text = addressLine2
+        }
         
         phoneButton.setTitle(currentFoodTruck.displayPhone, for: .normal)
         //addressButton.setTitle(currentFoodTruck.subtitle, for: .normal)
         
         navigationItem.title = currentFoodTruck.title
+
+        getDayOfWeek()
         
         mobileEatsService.getFoodTruckDetails(foodTruck: currentFoodTruck) { results, errorMessage in
             if let results = results {
@@ -80,6 +101,13 @@ class TruckDetailViewController: UIViewController {
         mapItem.openInMaps(launchOptions: options)
     }
     
+    func getDayOfWeek() -> Int? {
+        let today = Date()
+        let weekDay = Calendar.current.component(.weekday, from: today)
+        // iOS: Sunday = 1, Monday = 2
+        // Yelp API: Monday = 0, Tuesday = 1
+        return weekDay
+    }
 }
 
 extension TruckDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {

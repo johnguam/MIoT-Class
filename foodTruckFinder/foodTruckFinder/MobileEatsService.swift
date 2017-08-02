@@ -21,8 +21,8 @@ class MobileEatsService {
     
     enum Constant {
         static let statusCodeOK = 200
-        static let searchBaseURL = "https://jirv8u2ell.execute-api.us-west-1.amazonaws.com/dev/foodtrucks/search"
-        static let detailsBaseURL = "https://jirv8u2ell.execute-api.us-west-1.amazonaws.com/dev/foodtrucks"
+        static let searchBaseURL = "https://pc6igqa77b.execute-api.us-west-1.amazonaws.com/prod/foodtrucks/search"
+        static let detailsBaseURL = "https://pc6igqa77b.execute-api.us-west-1.amazonaws.com/prod/foodtrucks"
         static let authHeader = "Bearer UOG4x25kRFF6bWtb-Sq8wP2J3mD9NZfSKbKdweHWO0nC7C-A5-ROuVH30RQ7_2tQrYpIAvOuIjI9OBtON8BtUb49la3UGXmc0B_tgTddC14pp0ceMTSHY_xxnyhtWXYx"
         static let metersPerMile: Double = 1609.344
     }
@@ -192,7 +192,6 @@ class MobileEatsService {
         var response: JSONDictionary?
         let currentFoodTruck = foodTruck
         var photos: [URL]? = nil
-        var displayPhone: String? = nil
         
         do {
             response = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary
@@ -203,8 +202,6 @@ class MobileEatsService {
         guard let foodTruckDictionary = response?["body"] as? JSONDictionary else {
             throw ServiceError(message: "Empty JSON")
         }
-    
-        displayPhone = foodTruckDictionary["display_phone"] as? String
         
         if let photosStrings = foodTruckDictionary["photos"] as? [String] {
             photos = photosStrings.map {

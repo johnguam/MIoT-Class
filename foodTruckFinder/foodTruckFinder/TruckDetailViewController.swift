@@ -58,8 +58,6 @@ class TruckDetailViewController: UIViewController {
         //addressButton.setTitle(currentFoodTruck.subtitle, for: .normal)
         
         navigationItem.title = currentFoodTruck.title
-
-        getDayOfWeek()
         
         mobileEatsService.getFoodTruckDetails(foodTruck: currentFoodTruck) { results, errorMessage in
             if let results = results {

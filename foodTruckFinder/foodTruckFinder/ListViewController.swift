@@ -8,15 +8,19 @@
 
 import UIKit
 import SDWebImage
+import CoreLocation
 
 class ListViewController: UIViewController {
 
     enum Constant {
-        static let latitude = 37.3533530886479
-        static let longitude = -122.013784749846
+        //static let latitude = 37.3533530886479
+        //static let longitude = -122.013784749846
         static let radius = 500
         static let showTruckDetailViewIdentifer = "ShowTruckDetailView"
     }
+    
+    fileprivate var locationManager = CLLocationManager()
+    var currentCoordinate: CLLocationCoordinate2D?
 
     @IBOutlet var tableView: UITableView!
     var searchResults: [FoodTruck] = []
@@ -25,19 +29,11 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        
         tableView.dataSource = self
         tableView.delegate = self
-        
-        mobileEatsService.getSearchResults(latitude: Constant.latitude, longitude: Constant.longitude, radius: Constant.radius) { results, errorMessage in
-            
-            if let results = results {
-                self.searchResults = results
-                self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPoint.zero, animated: false)
-            }
-            
-            if !errorMessage.isEmpty { print("Search error: " + errorMessage) }
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,4 +74,45 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+extension ListViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            locationManager.startUpdatingLocation()
+            break
+        default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Only get location once
+        manager.stopUpdatingLocation()
+        
+        if let currentLocation = locations.last {
+            self.currentCoordinate = currentLocation.coordinate
+            
+            guard let currentCoordinate = self.currentCoordinate else {
+                return
+            }
+            
+            mobileEatsService.getSearchResults(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude, radius: Constant.radius) { results, errorMessage in
+                
+                if let results = results {
+                    self.searchResults = results
+                    self.tableView.reloadData()
+                    self.tableView.setContentOffset(CGPoint.zero, animated: false)
+                }
+                
+                if !errorMessage.isEmpty { print("Search error: " + errorMessage) }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error: \(error)")
+    }
+}
+
 
